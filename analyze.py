@@ -25,7 +25,17 @@ def get_sentiments_by_month():
         for month in text_by_time[year].keys():
             text_by_time[year][month] = get_sentiment_score(text_by_time[year][month])
 
-    pprint(text_by_time)
+    # create tsv file
+    data = "date\tsentiment\n"
+    for year in text_by_time.keys():
+        for month in text_by_time[year].keys():
+            sentiment = text_by_time[year][month]
+            data += str(year)+"-"+month+"\t"+str(sentiment)+"\n"
+    print(data)
+    outfile = open("data.tsv","w")
+    outfile.write(data)
+    outfile.close()
+
     return text_by_time
 
 
